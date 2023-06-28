@@ -1,7 +1,9 @@
+//if there is a second operator added / chosen Numbers array has a length of 4+, calculate the first operation
+
 const buttons = document.querySelectorAll(".keyboard div");
 const displayText = document.querySelector("h2");
-const operators = ["+", "-", "/", "x", "="];
-const specialKeys = ["DEL", "RESET"]
+const operators = ["+", "-", "/", "x"];
+const specialKeys = ["DEL", "RESET", "="]
 let chosenNumbers = [];
 let totalFigure = 0;
 let answer = 0;
@@ -18,33 +20,82 @@ buttons.forEach(button => {
 
 let evaluateFigure = chosenFigure => {
     if(operators.includes(chosenFigure)){
-        chosenNumbers.push(Number(totalFigure));
-        if (chosenFigure == "=") {
+        if(typeof (chosenNumbers[chosenNumbers.length - 1]) == "number"){
             chosenNumbers.push(chosenFigure);
-            calculateAnswer();
-        }else {
+            totalFigure = 0;
+
+        } else{
+            chosenNumbers.push(Number(totalFigure));
             chosenNumbers.push(chosenFigure);
+            totalFigure = 0;
+            let noOfOperators = 0;
+            for(let i = 0; i <  chosenNumbers.length; i++){
+                for(let j = 0; j < operators.length; j++){
+                    if(chosenNumbers[i] == operators[j]){
+                        ++ noOfOperators;
+                    }
+                }
+                if(noOfOperators > 1){
+                    reduceArr();
+                }
+            }
+
         }
-        totalFigure = 0;
+            
+         
+        } else if (chosenFigure == "="){
+            chosenNumbers.push(Number(totalFigure));
+            chosenNumbers.push(chosenFigure);
+            let indexOfOperator = 1;
+            calculateAnswer(indexOfOperator);
+            totalFigure = 0;
+         
+        }
+        
+        else if (chosenFigure == "RESET"){
+            chosenNumbers = [];
+            totalFigure = 0;
+            answer = 0;
+    
+
+        } else if (chosenFigure == "DEL") {
+            console.log(chosenFigure);
+            if(operators.includes(chosenNumbers[chosenNumbers.length - 1])){
+                chosenNumbers.pop();
+
+            } else{
+                totalFigure = 0;
+            }
+            
+     
+
+        } else  {
+            totalFigure += chosenFigure;
        
-    } else if (chosenFigure == "RESET"){
-        chosenNumbers = [];
-        totalFigure = 0;
-        answer = 0;
-
-    } else if (chosenFigure == "DEL") {
-        totalFigure = 0;
-
-    } else {
-        totalFigure += chosenFigure;
+        } 
     }
+
+let reduceArr = () => {
+    calculateAnswer(1);
+    chosenNumbers.shift();
+    chosenNumbers.shift();
+    chosenNumbers.shift();
+    chosenNumbers.unshift(answer);
+    totalFigure = 0;
+
 }
 
-let calculateAnswer = () => {
-    for(let i = 0; i < chosenNumbers.length; i++ ){
-        let num1 = chosenNumbers[i - 1];
-        let num2 = chosenNumbers[i + 1];
-        switch (chosenNumbers[i]) {
+
+
+
+
+let calculateAnswer = indexOfOperator => {
+            let operator = chosenNumbers[indexOfOperator];
+            
+            num1 = chosenNumbers[indexOfOperator - 1];
+            num2 = chosenNumbers[indexOfOperator + 1];
+
+            switch (operator) {
             case "+":
                 answer = add(num1, num2);
                 break;
@@ -59,9 +110,11 @@ let calculateAnswer = () => {
                 break;
         }
 
-    } 
+        }
+    
+   
 
-}
+
 
 
 let add = (num1, num2) => {
@@ -84,7 +137,7 @@ let divide = (num1, num2) => {
 
 let displayFigure = (chosenFigure) => {
     if (chosenNumbers.includes("=")){
-        displayText.innerText = Math.round(answer*1000000) / 1000000;  
+        displayText.innerText = Math.round(answer * 1000000) / 1000000;  
     } else{
         if(operators.includes(chosenFigure)){
         displayText.innerText = chosenFigure;
@@ -93,8 +146,10 @@ let displayFigure = (chosenFigure) => {
         } else if (chosenFigure == "DEL"){
             displayText.innerText = chosenNumbers[chosenNumbers.length - 1];
 
-        }else {
+        }else if (totalFigure){
             displayText.innerText = totalFigure.slice(1, totalFigure.length);
+        } else {
+            displayText.innerText = chosenNumbers[chosenNumbers.length - 1];
         }
     }
 
