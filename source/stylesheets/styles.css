@@ -35,7 +35,12 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 50%;
+    width: 40%;
+}
+
+.toggle-overlay p {
+    align-self: flex-end;
+    margin-bottom: 5px;
 }
 
 .numeric-labels {
@@ -130,7 +135,26 @@ h1 {
 }
 
 @media( min-width: 1000px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+
     .card {
         width: 500px;
     }
+
+    .toggle-overlay {
+        width: 30%;
+    }
+
+    .display{
+        font-size: 36px;
+    }
+
+    #delete, #reset, #equals {
+            font-size: 24px;
+        }
 }
