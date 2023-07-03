@@ -7,11 +7,11 @@ body{
     background-color: hsl(223, 31%, 20%);
 }
 
-.option-two, .option-three {
+.option-two .circle, .option-three .circle {
     visibility: hidden;
 }
 
-.option-one {
+.option-one .circle {
     background-color: hsl(6, 63%, 50%);
 }
 

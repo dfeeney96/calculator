@@ -1,0 +1,64 @@
+body {
+    background-color: hsl(0, 0%, 90%);
+    color: hsl(60, 10%, 19%);
+}
+
+.bar {
+    background-color: hsl(0, 5%, 81%);
+}
+
+.option-one .circle,
+.option-three .circle {
+    visibility: hidden;
+}
+
+.option-two .circle {
+    background-color: hsl(6, 63%, 50%);
+}
+
+.display {
+    background-color: hsl(0, 0%, 93%);
+}
+
+.keyboard {
+    background-color:hsl(0, 5%, 81%);
+}
+
+.keyboard div {
+    background-color: hsl(45, 7%, 89%);
+    box-shadow: 0 5px hsl(35, 11%, 61%);
+}
+
+.keyboard div:hover {
+    background-color: hsl(45, 17%, 95%);
+    ;
+}
+
+#delete,
+#reset,
+#equals {
+    color: hsl(0, 0%, 100%)
+}
+
+
+#delete,
+#reset {
+    background-color: hsl(185, 42%, 37%);
+    box-shadow: 0 5px hsl(185, 58%, 25%);
+}
+
+#delete:hover,
+#reset:hover {
+    background-color: hsl(185, 36%, 58%);
+}
+
+
+#equals {
+    background-color: hsl(25, 98%, 40%);
+    box-shadow: 0 5px hsl(25, 99%, 27%);
+}
+
+#equals:hover {
+    background-color: hsl(6, 66%, 69%);
+
+}

@@ -1,7 +1,7 @@
 //if there is a second operator added / chosen Numbers array has a length of 4+, calculate the first operation
 
-const specialKeyButtons = document.querySelectorAll(".special-key");
-const numberButtons = document.querySelectorAll(".number");
+const buttons = document.querySelectorAll(".keyboard div");
+
 const displayText = document.querySelector("h2");
 const operators = ["+", "-", "/", "x"];
 const specialKeys = ["DEL", "RESET", "="]
@@ -10,14 +10,10 @@ let totalFigure = 0;
 let answer = 0;
 
 
-window.addEventListener("load", function(){
-    activateSpecialKeyButtons()
-    activateNumberButtons();
-}
-)
 
-const activateSpecialKeyButtons = () => {
-    specialKeyButtons.forEach(button => {
+
+
+buttons.forEach(button => {
         button.addEventListener("click", e => {
         let chosenFigure = button.innerText;
         evaluateFigure(chosenFigure);
@@ -26,23 +22,7 @@ const activateSpecialKeyButtons = () => {
         e.preventDefault();
         })
     })
-}
 
-const activateNumberButtons = () => {
-    numberButtons.forEach(button => {
-        button.addEventListener("click", e => {
-            let chosenFigure = button.innerText;
-            evaluateFigure(chosenFigure);
-            displayFigure(chosenFigure);
-            e.stopPropagation();
-            e.preventDefault();
-        })
-})
-}
-
-const disableNumberButtons = () => {
-    numberButtons.forEach(button => button.removeEventListener("click", activateNumberButtons))
-    }
 
 
 
@@ -76,7 +56,7 @@ const evaluateFigure = chosenFigure => {
             let indexOfOperator = 1;
             calculateAnswer(indexOfOperator);
             totalFigure = 0;
-            disableNumberButtons();
+      
          
         }
         
@@ -84,9 +64,7 @@ const evaluateFigure = chosenFigure => {
             chosenNumbers = [];
             totalFigure = 0;
             answer = 0;
-            disableNumberButtons();
-            activateNumberButtons();
-            disableNumberButtons();
+         
     
 
         } else if (chosenFigure == "DEL") {
@@ -105,7 +83,7 @@ const evaluateFigure = chosenFigure => {
     }
 
 const reduceArr = () => {
-    calculateAnswer(1);
+    calculateAnswer();
     chosenNumbers.shift();
     chosenNumbers.shift();
     chosenNumbers.shift();
@@ -164,6 +142,8 @@ const divide = (num1, num2) => {
 const displayFigure = (chosenFigure) => {
     if (chosenNumbers.includes("=")){
         displayText.innerText = Math.round(answer * 1000000) / 1000000;  
+        chosenNumbers= [];
+        chosenNumbers.push(answer);
     } else{
         if(operators.includes(chosenFigure)){
         displayText.innerText = chosenFigure;
